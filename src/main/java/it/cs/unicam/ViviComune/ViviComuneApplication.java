@@ -10,6 +10,7 @@ public class ViviComuneApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ViviComuneApplication.class, args);
 		System.out.println("Commit si");
+		System.out.println("Commit no");
 	}
 
 }
