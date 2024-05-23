@@ -10,7 +10,6 @@ public class Itinerario {
     private String nome;
     private String descrizione;
     private List<POI> listaPOI;
-    private int n;
     public Itinerario(int ID, String nome, String descrizione) {
         this.ID = ID;
         this.nome = nome;
