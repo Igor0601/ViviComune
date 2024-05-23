@@ -6,8 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ViviComuneApplication {
 
+
 	public static void main(String[] args) {
 		SpringApplication.run(ViviComuneApplication.class, args);
+		System.out.println("Commit");
 	}
 
 }
