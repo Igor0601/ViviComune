@@ -1,11 +1,14 @@
 package it.cs.unicam.ViviComune.POI;
 
+import it.cs.unicam.ViviComune.Itinerario.GestoreItinerario;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class gestorePOI {
 
     private List<POI> poiList;
+    private GestoreItinerario gestoreItinerario;
 
     public gestorePOI() {
         poiList = new ArrayList<>();
@@ -27,7 +30,17 @@ public class gestorePOI {
     }
 
     public void eliminaPOI(int id) {
-        poiList.removeIf(poi -> poi.getId() == id);
+        POI poiDaEliminare = null;
+        for (POI poi : poiList) {
+            if (poi.getId() == id) {
+                poiDaEliminare = poi;
+                break;
+            }
+        }
+        if (poiDaEliminare != null) {
+            poiList.remove(poiDaEliminare);
+            gestoreItinerario.rimuoviPOIdaTuttiItinerari(poiDaEliminare);
+        }
     }
 
     public POI getPOI(int id) {
