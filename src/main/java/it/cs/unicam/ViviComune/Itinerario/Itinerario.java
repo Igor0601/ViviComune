@@ -10,7 +10,7 @@ public class Itinerario {
     private String nome;
     private String descrizione;
     private List<POI> listaPOI;
-    private int n;
+
     public Itinerario(int ID, String nome, String descrizione) {
         this.ID = ID;
         this.nome = nome;
@@ -22,7 +22,24 @@ public class Itinerario {
     public String getNome() {
         return nome;
     }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public String getDescrizione() {
         return descrizione;
+    }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
+    public List<POI> getListaPOI() {
+        return listaPOI;
+    }
+
+    public void setListaPOI(List<POI> listaPOI) {
+        this.listaPOI = listaPOI;
     }
 }
