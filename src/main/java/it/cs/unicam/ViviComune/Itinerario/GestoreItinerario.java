@@ -36,7 +36,7 @@ public class GestoreItinerario {
         }
     }
 
-    public void aggiungiPOIAllItinerario(int itinerarioID, POI poi){
+    public void aggiungiPOIAItinerario(int itinerarioID, POI poi){
         Itinerario itinerario = getItinerario(itinerarioID);
         if(itinerario != null){
             itinerario.aggiungiPOI(poi);

@@ -55,5 +55,4 @@ public class gestorePOI {
     public List<POI> getTuttiPOI() {
         return poiList;
     }
-
 }
