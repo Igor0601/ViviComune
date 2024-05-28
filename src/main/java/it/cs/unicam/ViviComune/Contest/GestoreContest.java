@@ -1,5 +1,6 @@
 package it.cs.unicam.ViviComune.Contest;
 
+import it.cs.unicam.ViviComune.ContenutoAggiuntivo.ContenutoAggiuntivo;
 import it.cs.unicam.ViviComune.POI.POI;
 
 import java.time.LocalDate;
