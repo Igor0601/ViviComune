@@ -15,6 +15,7 @@ public class Itinerario {
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
+        this.listaPOI = new ArrayList<>();
     }
     public int getID() {
         return ID;
@@ -41,5 +42,13 @@ public class Itinerario {
 
     public void setListaPOI(List<POI> listaPOI) {
         this.listaPOI = listaPOI;
+    }
+
+    public void aggiungiPOI(POI poi) {
+        listaPOI.add(poi);
+    }
+
+    public void rimuoviPOI(POI poi) {
+        listaPOI.remove(poi);
     }
 }
