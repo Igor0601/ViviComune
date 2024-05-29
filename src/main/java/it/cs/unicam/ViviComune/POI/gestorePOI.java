@@ -1,6 +1,6 @@
 package it.cs.unicam.ViviComune.POI;
 
-import it.cs.unicam.ViviComune.Utente.GestoreItinerario;
+import it.cs.unicam.ViviComune.Itinerario.GestoreItinerario;
 
 import java.util.ArrayList;
 import java.util.List;

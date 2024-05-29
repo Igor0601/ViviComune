@@ -49,6 +49,12 @@ public class GestoreItinerario {
         }
     }
 
+    public void rimuoviPOIdaTuttiItinerari(POI poi) {
+        for (Itinerario itinerario : itinerarioList) {
+            itinerario.rimuoviPOI(poi);
+        }
+    }
+
     public void eliminaItinerario(int ID){
         for(int i = 0; i<itinerarioList.size(); i++){
             if(itinerarioList.get(i).getID() == ID){
