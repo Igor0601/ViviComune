@@ -1,4 +1,4 @@
-package Utente;
+package it.cs.unicam.ViviComune.Utente;
 
 public class Utente {
     int id;

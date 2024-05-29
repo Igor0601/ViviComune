@@ -1,4 +1,4 @@
-package Utente;
+package it.cs.unicam.ViviComune.Utente;
 
 import java.util.ArrayList;
 import java.util.List;

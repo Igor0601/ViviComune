@@ -1,4 +1,4 @@
-package Utente;
+package it.cs.unicam.ViviComune.Utente;
 
 public enum RuoloUtente {
     TURISTA_AUTENTICATO,
