@@ -1,15 +1,15 @@
 package it.cs.unicam.ViviComune.POI;
 
 public class POI {
-    private int id;
+    private String id;
     private String nome;
     private String descrizione;
-    public POI(int id, String nome, String descrizione) {
+    public POI(String id, String nome, String descrizione) {
         this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
     }
-    public int getId() {
+    public String getId() {
         return id;
     }
     public String getNome() {
