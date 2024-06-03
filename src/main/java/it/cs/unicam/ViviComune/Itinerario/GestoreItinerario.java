@@ -13,23 +13,23 @@ public class GestoreItinerario {
         itinerarioList = new ArrayList<Itinerario>();
     }
 
-    public Itinerario getItinerario(int ID){
+    public Itinerario getItinerario(String ID){
         for(Itinerario itinerario : itinerarioList) {
-            if (itinerario.getID() == ID) {
+            if (itinerario.getID().equals(ID)) {
                 return itinerario;
             }
         }
         return null;
     }
 
-    public void creaItinerario(int ID, String nome, String descrizione){
+    public void creaItinerario(String ID, String nome, String descrizione){
         Itinerario itinerario = new Itinerario(ID, nome, descrizione);
         itinerarioList.add(itinerario);
     }
 
-    public void modificaItinerario(int ID, String nome, String descrizione){
+    public void modificaItinerario(String ID, String nome, String descrizione){
         for(Itinerario itinerario : itinerarioList) {
-            if (itinerario.getID() == ID) {
+            if (itinerario.getID().equals(ID)) {
                 itinerario.setNome(nome);
                 itinerario.setDescrizione(descrizione);
                 break;
@@ -37,14 +37,14 @@ public class GestoreItinerario {
         }
     }
 
-    public void aggiungiPOIAllItinerario(int itinerarioID, POI poi){
+    public void aggiungiPOIAllItinerario(String itinerarioID, POI poi){
         Itinerario itinerario = getItinerario(itinerarioID);
         if(itinerario != null){
             itinerario.aggiungiPOI(poi);
         }
     }
 
-    public void rimuoviPOIDaItinerario(int itinerarioID, POI poi){
+    public void rimuoviPOIDaItinerario(String itinerarioID, POI poi){
         Itinerario itinerario = getItinerario(itinerarioID);
         if(itinerario != null){
             itinerario.rimuoviPOI(poi);
@@ -57,9 +57,9 @@ public class GestoreItinerario {
         }
     }
 
-    public void eliminaItinerario(int ID){
+    public void eliminaItinerario(String ID){
         for(int i = 0; i<itinerarioList.size(); i++){
-            if(itinerarioList.get(i).getID() == ID){
+            if(itinerarioList.get(i).getID().equals(ID)){
                 itinerarioList.remove(i);
                 break;
             }
@@ -68,5 +68,23 @@ public class GestoreItinerario {
 
     public List<Itinerario> getTuttiItinerari(){
         return new ArrayList<>(itinerarioList);
+    }
+
+    public boolean esisteItinerarioConID(String ID) {
+        for (Itinerario itinerario : itinerarioList) {
+            if (itinerario.getID().equals(ID)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean esisteItinerarioConNome(String nome) {
+        for (Itinerario itinerario : itinerarioList) {
+            if (itinerario.getNome().equals(nome)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

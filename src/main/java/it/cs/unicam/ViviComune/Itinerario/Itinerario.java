@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Itinerario {
-    private int ID;
+    private String ID;
     private String nome;
     private String descrizione;
     private List<POI> listaPOI;
 
-    public Itinerario(int ID, String nome, String descrizione) {
+    public Itinerario(String ID, String nome, String descrizione) {
         this.ID = ID;
         this.nome = nome;
         this.descrizione = descrizione;
         this.listaPOI = new ArrayList<>();
     }
-    public int getID() {
+    public String getID() {
         return ID;
     }
     public String getNome() {

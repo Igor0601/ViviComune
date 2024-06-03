@@ -32,8 +32,14 @@ public class POIController {
 
     @PostMapping("/nuovo")
     public ResponseEntity<String> creaPOI(@RequestBody POI nuovoPOI) {
-        gestorePoi.creaPOI(nuovoPOI.getId(), nuovoPOI.getNome(), nuovoPOI.getDescrizione());
-        return new ResponseEntity<>("POI creato con successo", HttpStatus.CREATED);
+        if (gestorePoi.esistePOIConId(nuovoPOI.getId())) {
+            return new ResponseEntity<>("Un POI con lo stesso ID esiste già", HttpStatus.BAD_REQUEST);
+        } else if (gestorePoi.esistePOIConNome(nuovoPOI.getNome())) {
+            return new ResponseEntity<>("Un POI con lo stesso nome esiste già", HttpStatus.BAD_REQUEST);
+        } else {
+            gestorePoi.creaPOI(nuovoPOI.getId(), nuovoPOI.getNome(), nuovoPOI.getDescrizione());
+            return new ResponseEntity<>("POI creato con successo", HttpStatus.CREATED);
+        }
     }
 
     @DeleteMapping("/elimina/{id}")

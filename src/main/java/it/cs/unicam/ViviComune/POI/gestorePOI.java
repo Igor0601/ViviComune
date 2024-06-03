@@ -59,4 +59,22 @@ public class gestorePOI {
     public List<POI> getTuttiPOI() {
         return new ArrayList<>(poiList);
     }
+
+    public boolean esistePOIConId(String id) {
+        for (POI poi : poiList) {
+            if (poi.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean esistePOIConNome(String nome) {
+        for (POI poi : poiList) {
+            if (poi.getNome().equals(nome)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
