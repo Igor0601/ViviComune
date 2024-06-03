@@ -1,9 +1,11 @@
 package it.cs.unicam.ViviComune.Itinerario;
 import it.cs.unicam.ViviComune.POI.POI;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class GestoreItinerario {
     private List<Itinerario> itinerarioList;
 
@@ -65,6 +67,6 @@ public class GestoreItinerario {
     }
 
     public List<Itinerario> getTuttiItinerari(){
-        return itinerarioList;
+        return new ArrayList<>(itinerarioList);
     }
 }
