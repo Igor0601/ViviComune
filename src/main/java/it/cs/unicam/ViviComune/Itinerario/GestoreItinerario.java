@@ -1,5 +1,6 @@
 package it.cs.unicam.ViviComune.Itinerario;
 import it.cs.unicam.ViviComune.POI.POI;
+import it.cs.unicam.ViviComune.Stato;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,23 +14,23 @@ public class GestoreItinerario {
         itinerarioList = new ArrayList<Itinerario>();
     }
 
-    public Itinerario getItinerario(String ID){
+    public Itinerario getItinerario(String id){
         for(Itinerario itinerario : itinerarioList) {
-            if (itinerario.getID().equals(ID)) {
+            if (itinerario.getId().equals(id)) {
                 return itinerario;
             }
         }
         return null;
     }
 
-    public void creaItinerario(String ID, String nome, String descrizione){
-        Itinerario itinerario = new Itinerario(ID, nome, descrizione);
+    public void creaItinerario(String id, String nome, String descrizione){
+        Itinerario itinerario = new Itinerario(id, nome, descrizione);
         itinerarioList.add(itinerario);
     }
 
-    public void modificaItinerario(String ID, String nome, String descrizione){
+    public void modificaItinerario(String id, String nome, String descrizione){
         for(Itinerario itinerario : itinerarioList) {
-            if (itinerario.getID().equals(ID)) {
+            if (itinerario.getId().equals(id)) {
                 itinerario.setNome(nome);
                 itinerario.setDescrizione(descrizione);
                 break;
@@ -37,15 +38,15 @@ public class GestoreItinerario {
         }
     }
 
-    public void aggiungiPOIAllItinerario(String itinerarioID, POI poi){
-        Itinerario itinerario = getItinerario(itinerarioID);
+    public void aggiungiPOIAllItinerario(String itinerarioId, POI poi){
+        Itinerario itinerario = getItinerario(itinerarioId);
         if(itinerario != null){
             itinerario.aggiungiPOI(poi);
         }
     }
 
-    public void rimuoviPOIDaItinerario(String itinerarioID, POI poi){
-        Itinerario itinerario = getItinerario(itinerarioID);
+    public void rimuoviPOIDaItinerario(String itinerarioId, POI poi){
+        Itinerario itinerario = getItinerario(itinerarioId);
         if(itinerario != null){
             itinerario.rimuoviPOI(poi);
         }
@@ -57,9 +58,9 @@ public class GestoreItinerario {
         }
     }
 
-    public void eliminaItinerario(String ID){
+    public void eliminaItinerario(String id){
         for(int i = 0; i<itinerarioList.size(); i++){
-            if(itinerarioList.get(i).getID().equals(ID)){
+            if(itinerarioList.get(i).getId().equals(id)){
                 itinerarioList.remove(i);
                 break;
             }
@@ -70,9 +71,9 @@ public class GestoreItinerario {
         return new ArrayList<>(itinerarioList);
     }
 
-    public boolean esisteItinerarioConID(String ID) {
+    public boolean esisteItinerarioConId(String id) {
         for (Itinerario itinerario : itinerarioList) {
-            if (itinerario.getID().equals(ID)) {
+            if (itinerario.getId().equals(id)) {
                 return true;
             }
         }
@@ -86,5 +87,21 @@ public class GestoreItinerario {
             }
         }
         return false;
+    }
+
+    public void approvaItinerario(String id){
+        for (Itinerario itinerario : itinerarioList) {
+            if (itinerario.getId().equals(id)) {
+                itinerario.setStatoItinerario(Stato.APPROVATO);
+            }
+        }
+    }
+
+    public void disapprovaItinerario(String id){
+        for (Itinerario itinerario : itinerarioList) {
+            if (itinerario.getId().equals(id)) {
+                itinerario.setStatoItinerario(Stato.DISAPPROVATO);
+            }
+        }
     }
 }

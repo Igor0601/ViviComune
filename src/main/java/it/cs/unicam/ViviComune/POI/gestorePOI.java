@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import it.cs.unicam.ViviComune.Stato;
 
 @Service
 public class gestorePOI {
@@ -76,5 +77,21 @@ public class gestorePOI {
             }
         }
         return false;
+    }
+
+    public void approvaPOI(String id){
+        for (POI poi : poiList) {
+            if (poi.getId().equals(id)) {
+               poi.setStatoPOI(Stato.APPROVATO);
+            }
+        }
+    }
+
+    public void disapprovaPOI(String id){
+        for (POI poi : poiList) {
+            if (poi.getId().equals(id)) {
+                poi.setStatoPOI(Stato.DISAPPROVATO);
+            }
+        }
     }
 }

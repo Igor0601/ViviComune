@@ -11,6 +11,7 @@ public class POI {
         this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
+
     }
     public String getId() {
         return id;
@@ -29,6 +30,13 @@ public class POI {
 
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
+    }
+
+    public Stato getStatoPOI() {
+        return statoPOI;
+    }
+    public void setStatoPOI(Stato statoPOI) {
+        this.statoPOI = statoPOI;
     }
 
 }

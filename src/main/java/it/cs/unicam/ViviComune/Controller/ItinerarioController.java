@@ -21,13 +21,13 @@ public class ItinerarioController {
 
     @PostMapping("/nuovo")
     public ResponseEntity<String> creaItinerario(@RequestBody Itinerario nuovoItinerario) {
-        if (gestoreItinerario.esisteItinerarioConID(nuovoItinerario.getID())) {
+        if (gestoreItinerario.esisteItinerarioConId(nuovoItinerario.getId())) {
             return new ResponseEntity<>("Un itinerario con lo stesso ID esiste già", HttpStatus.BAD_REQUEST);
         }
         if (gestoreItinerario.esisteItinerarioConNome(nuovoItinerario.getNome())) {
             return new ResponseEntity<>("Un itinerario con lo stesso nome esiste già", HttpStatus.BAD_REQUEST);
         }
-        gestoreItinerario.creaItinerario(nuovoItinerario.getID(), nuovoItinerario.getNome(), nuovoItinerario.getDescrizione());
+        gestoreItinerario.creaItinerario(nuovoItinerario.getId(), nuovoItinerario.getNome(), nuovoItinerario.getDescrizione());
         return new ResponseEntity<>("Itinerario creato con successo", HttpStatus.CREATED);
     }
 
@@ -61,31 +61,31 @@ public class ItinerarioController {
         return new ResponseEntity<>("Itinerario modificato correttamente", HttpStatus.OK);
     }
 
-    @PostMapping("/{itinerarioID}/aggiungiPOI/{poiID}")
-    public ResponseEntity<String> aggiungiPOIAllItinerario(@PathVariable String itinerarioID, @PathVariable String poiID) {
-        Itinerario itinerario = gestoreItinerario.getItinerario(itinerarioID);
+    @PostMapping("/{itinerarioId}/aggiungiPOI/{poiId}")
+    public ResponseEntity<String> aggiungiPOIAllItinerario(@PathVariable String itinerarioId, @PathVariable String poiId) {
+        Itinerario itinerario = gestoreItinerario.getItinerario(itinerarioId);
         if (itinerario == null) {
             return new ResponseEntity<>("Itinerario non trovato", HttpStatus.NOT_FOUND);
         }
-        POI poi = gestorePOI.getPOI(poiID);
+        POI poi = gestorePOI.getPOI(poiId);
         if (poi == null) {
             return new ResponseEntity<>("POI non trovato", HttpStatus.NOT_FOUND);
         }
-        gestoreItinerario.aggiungiPOIAllItinerario(itinerarioID, poi);
+        gestoreItinerario.aggiungiPOIAllItinerario(itinerarioId, poi);
         return new ResponseEntity<>("POI aggiunto all'itinerario correttamente", HttpStatus.OK);
     }
 
-    @DeleteMapping("/{itinerarioID}/rimuoviPOI/{poiID}")
-    public ResponseEntity<String> rimuoviPOIDaItinerario(@PathVariable String itinerarioID, @PathVariable String poiID) {
-        Itinerario itinerario = gestoreItinerario.getItinerario(itinerarioID);
+    @DeleteMapping("/{itinerarioId}/rimuoviPOI/{poiId}")
+    public ResponseEntity<String> rimuoviPOIDaItinerario(@PathVariable String itinerarioId, @PathVariable String poiId) {
+        Itinerario itinerario = gestoreItinerario.getItinerario(itinerarioId);
         if (itinerario == null) {
             return new ResponseEntity<>("Errore: Itinerario non trovato", HttpStatus.NOT_FOUND);
         }
-        POI poi = gestorePOI.getPOI(poiID);
+        POI poi = gestorePOI.getPOI(poiId);
         if (poi == null) {
             return new ResponseEntity<>("Errore: POI non trovato", HttpStatus.NOT_FOUND);
         }
-        gestoreItinerario.rimuoviPOIDaItinerario(itinerarioID, poi);
+        gestoreItinerario.rimuoviPOIDaItinerario(itinerarioId, poi);
         return new ResponseEntity<>("POI rimosso dall'itinerario correttamente", HttpStatus.OK);
     }
 

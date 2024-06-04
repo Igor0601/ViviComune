@@ -7,20 +7,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Itinerario {
-    private String ID;
+    private String id;
     private String nome;
     private String descrizione;
     private List<POI> listaPOI;
     private Stato statoItinerario;
 
-    public Itinerario(String ID, String nome, String descrizione) {
-        this.ID = ID;
+    public Itinerario(String id, String nome, String descrizione) {
+        this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
         this.listaPOI = new ArrayList<>();
     }
-    public String getID() {
-        return ID;
+    public String getId() {
+        return id;
     }
     public String getNome() {
         return nome;
@@ -52,5 +52,13 @@ public class Itinerario {
 
     public void rimuoviPOI(POI poi) {
         listaPOI.remove(poi);
+    }
+
+    public Stato getStatoItinerario() {
+        return statoItinerario;
+    }
+
+    public void setStatoItinerario(Stato statoItinerario) {
+        this.statoItinerario = statoItinerario;
     }
 }
