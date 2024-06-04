@@ -4,6 +4,7 @@ import it.cs.unicam.ViviComune.Itinerario.GestoreItinerario;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class gestorePOI {
@@ -22,7 +23,7 @@ public class gestorePOI {
 
     public void modificaPOI(String id, String nome, String descrizione) {
         for (POI poi : poiList) {
-            if (poi.getId() == id) {
+            if (Objects.equals(poi.getId(), id)) {
                 poi.setNome(nome);
                 poi.setDescrizione(descrizione);
                 break;
@@ -33,7 +34,7 @@ public class gestorePOI {
     public void eliminaPOI(String id) {
         POI poiDaEliminare = null;
         for (POI poi : poiList) {
-            if (poi.getId() == id) {
+            if (Objects.equals(poi.getId(), id)) {
                 poiDaEliminare = poi;
                 break;
             }
@@ -46,7 +47,7 @@ public class gestorePOI {
 
     public POI getPOI(String id) {
         for (POI poi : poiList) {
-            if (poi.getId() == id) {
+            if (Objects.equals(poi.getId(), id)) {
                 return poi;
             }
         }
@@ -57,4 +58,3 @@ public class gestorePOI {
         return poiList;
     }
 }
-//provaa test
