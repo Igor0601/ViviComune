@@ -1,15 +1,17 @@
 package it.cs.unicam.ViviComune.POI;
 
 import it.cs.unicam.ViviComune.Itinerario.GestoreItinerario;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class gestorePOI {
 
     private List<POI> poiList;
+
+    @Autowired
     private GestoreItinerario gestoreItinerario;
 
     public gestorePOI() {
@@ -23,7 +25,7 @@ public class gestorePOI {
 
     public void modificaPOI(String id, String nome, String descrizione) {
         for (POI poi : poiList) {
-            if (Objects.equals(poi.getId(), id)) {
+            if (poi.getId().equals(id)) {
                 poi.setNome(nome);
                 poi.setDescrizione(descrizione);
                 break;
@@ -34,7 +36,7 @@ public class gestorePOI {
     public void eliminaPOI(String id) {
         POI poiDaEliminare = null;
         for (POI poi : poiList) {
-            if (Objects.equals(poi.getId(), id)) {
+            if (poi.getId().equals(id)) {
                 poiDaEliminare = poi;
                 break;
             }
@@ -47,7 +49,7 @@ public class gestorePOI {
 
     public POI getPOI(String id) {
         for (POI poi : poiList) {
-            if (Objects.equals(poi.getId(), id)) {
+            if (poi.getId().equals(id)){
                 return poi;
             }
         }
@@ -55,6 +57,24 @@ public class gestorePOI {
     }
 
     public List<POI> getTuttiPOI() {
-        return poiList;
+        return new ArrayList<>(poiList);
+    }
+
+    public boolean esistePOIConId(String id) {
+        for (POI poi : poiList) {
+            if (poi.getId().equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean esistePOIConNome(String nome) {
+        for (POI poi : poiList) {
+            if (poi.getNome().equals(nome)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
