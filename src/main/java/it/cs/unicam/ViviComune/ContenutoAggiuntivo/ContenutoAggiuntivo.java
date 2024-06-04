@@ -1,5 +1,7 @@
 package it.cs.unicam.ViviComune.ContenutoAggiuntivo;
 
+import it.cs.unicam.ViviComune.Stato;
+
 import java.io.File;
 
 public class ContenutoAggiuntivo {
@@ -7,6 +9,7 @@ public class ContenutoAggiuntivo {
     private String autore;
     private String descrizione;
     private File file;
+    private Stato statoContenuto;
 
     public ContenutoAggiuntivo(int ID, String nome, String descrizione, File file){
         this.ID = ID;

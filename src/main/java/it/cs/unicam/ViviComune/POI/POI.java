@@ -1,9 +1,12 @@
 package it.cs.unicam.ViviComune.POI;
 
+import it.cs.unicam.ViviComune.Stato;
+
 public class POI {
     private String id;
     private String nome;
     private String descrizione;
+    private Stato statoPOI;
     public POI(String id, String nome, String descrizione) {
         this.id = id;
         this.nome = nome;
