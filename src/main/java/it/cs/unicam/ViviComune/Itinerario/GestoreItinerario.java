@@ -1,6 +1,6 @@
 package it.cs.unicam.ViviComune.Itinerario;
 import it.cs.unicam.ViviComune.POI.POI;
-import it.cs.unicam.ViviComune.Stato;
+import it.cs.unicam.ViviComune.Utils.Stato;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

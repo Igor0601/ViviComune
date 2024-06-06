@@ -1,7 +1,7 @@
 package it.cs.unicam.ViviComune.Itinerario;
 
 import it.cs.unicam.ViviComune.POI.POI;
-import it.cs.unicam.ViviComune.Stato;
+import it.cs.unicam.ViviComune.Utils.Stato;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +18,7 @@ public class Itinerario {
         this.nome = nome;
         this.descrizione = descrizione;
         this.listaPOI = new ArrayList<>();
+        this.statoItinerario = Stato.ATTESA;
     }
     public String getId() {
         return id;
