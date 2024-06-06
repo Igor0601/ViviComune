@@ -1,6 +1,6 @@
 package it.cs.unicam.ViviComune.Contest;
 
-import it.cs.unicam.ViviComune.ContenutoAggiuntivo.ContenutoAggiuntivo;
+import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
 import it.cs.unicam.ViviComune.POI.POI;
 
 import java.time.LocalDate;
@@ -40,7 +40,7 @@ public class GestoreContest {
     public List<Contest> getTuttiContest(){
         return contestList;
     }
-    public ContenutoAggiuntivo scegliVincitore(){
+    public contenutoAggiuntivo scegliVincitore(){
         //TODO implementare
         return null;
     }
