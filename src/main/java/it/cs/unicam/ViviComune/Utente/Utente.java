@@ -1,14 +1,14 @@
 package it.cs.unicam.ViviComune.Utente;
 
 public class Utente {
-    int id;
+    String id;
     String nome;
     String cognome;
     String email;
     String username;
     private RuoloUtente ruolo;
 
-    public Utente(int id, String nome, String cognome, String email, String username, RuoloUtente ruolo) {
+    public Utente(String id, String nome, String cognome, String email, String username, RuoloUtente ruolo) {
         this.id = id;
         this.nome = nome;
         this.cognome = cognome;
@@ -17,11 +17,11 @@ public class Utente {
         this.ruolo=ruolo;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -47,6 +47,14 @@ public class Utente {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public RuoloUtente getRuolo() {

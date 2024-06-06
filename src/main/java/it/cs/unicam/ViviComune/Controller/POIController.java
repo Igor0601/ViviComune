@@ -37,7 +37,7 @@ public class POIController {
         } else if (gestorePoi.esistePOIConNome(nuovoPOI.getNome())) {
             return new ResponseEntity<>("Un POI con lo stesso nome esiste già", HttpStatus.BAD_REQUEST);
         } else {
-            gestorePoi.creaPOI(nuovoPOI.getId(), nuovoPOI.getNome(), nuovoPOI.getDescrizione());
+            gestorePoi.creaPOI(nuovoPOI.getId(), nuovoPOI.getNome(), nuovoPOI.getDescrizione(), nuovoPOI.getCoordinate());
             return new ResponseEntity<>("POI creato con successo", HttpStatus.CREATED);
         }
     }

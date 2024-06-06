@@ -1,5 +1,5 @@
 package it.cs.unicam.ViviComune.Contest;
-import it.cs.unicam.ViviComune.ContenutoAggiuntivo.ContenutoAggiuntivo;
+import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
 import it.cs.unicam.ViviComune.POI.POI;
 
 import java.time.LocalDate;
@@ -14,7 +14,7 @@ public class Contest {
     private LocalDate dataInizio;
     private LocalDate dataFine;
     private POI poi;
-    private List<ContenutoAggiuntivo> contenuti;
+    private List<contenutoAggiuntivo> contenuti;
     private List<String> invitati;
 
     public Contest(int ID, String nome, String descrizione, String tipo, LocalDate dataInizio, LocalDate dataFine, POI poi) {
@@ -50,7 +50,7 @@ public class Contest {
     public POI getPoi() {
         return poi;
     }
-    public List<ContenutoAggiuntivo> getContenuti(){
+    public List<contenutoAggiuntivo> getContenuti(){
         return contenuti;
     }
     public List<String> getInvitati(){
@@ -77,7 +77,7 @@ public class Contest {
     public void setPoi(POI poi) {
         this.poi = poi;
     }
-    public void setContenuti(List<ContenutoAggiuntivo> contenuti) {
+    public void setContenuti(List<contenutoAggiuntivo> contenuti) {
         this.contenuti = contenuti;
     }
     public void setInvitati(List<String> invitati) {

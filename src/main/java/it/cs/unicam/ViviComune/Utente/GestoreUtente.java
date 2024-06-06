@@ -1,8 +1,11 @@
 package it.cs.unicam.ViviComune.Utente;
 
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class GestoreUtente {
     private List<Utente> utenti;
 
@@ -10,14 +13,14 @@ public class GestoreUtente {
         this.utenti = new ArrayList<>();
     }
 
-    public void creaUtente(int id, String nome, String cognome, String email, String username, RuoloUtente ruolo) {
+    public void creaUtente(String id, String nome, String cognome, String email, String username, RuoloUtente ruolo) {
         Utente utente = new Utente(id, nome, cognome, email, username, ruolo);
         utenti.add(utente);
     }
 
-    public void modificaUtente(int id, String nome, String cognome, String email, RuoloUtente ruolo) {
+    public void modificaUtente(String id, String nome, String cognome, String email, RuoloUtente ruolo) {
         for (Utente utente : utenti) {
-            if (utente.getId() == id) {
+            if (utente.getId().equals(id)) {
                 utente.setNome(nome);
                 utente.setCognome(cognome);
                 utente.setEmail(email);
@@ -27,13 +30,13 @@ public class GestoreUtente {
         }
     }
 
-    public void eliminaUtente(int id) {
-        utenti.removeIf(utente -> utente.getId() == id);
+    public void eliminaUtente(String id) {
+        utenti.removeIf(utente -> utente.getId().equals(id));
     }
 
-    public Utente getUtente(int id) {
+    public Utente getUtente(String id) {
         for (Utente utente : utenti) {
-            if (utente.getId() == id) {
+            if (utente.getId().equals(id)) {
                 return utente;
             }
         }
@@ -42,5 +45,23 @@ public class GestoreUtente {
 
     public List<Utente> getTuttiUtenti() {
         return utenti;
+    }
+
+    public boolean esisteUtenteConEmail(String email) {
+        for (Utente utente : utenti) {
+            if (utente.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean esisteUtenteConUsername(String username) {
+        for (Utente utente : utenti) {
+            if (utente.getUsername().equals(username)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
