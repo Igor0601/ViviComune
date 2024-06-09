@@ -1,5 +1,6 @@
 package it.cs.unicam.ViviComune.Controller;
 
+import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
 import it.cs.unicam.ViviComune.POI.POI;
 import it.cs.unicam.ViviComune.POI.gestorePOI;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,6 +63,66 @@ public class POIController {
         } else {
             return new ResponseEntity<>("POI non trovato", HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PutMapping("/approva/{id}")
+    public ResponseEntity<String> approvaPOI(@PathVariable String id) {
+        POI poi = gestorePoi.getPOI(id);
+        if (poi == null) {
+            return new ResponseEntity<>("POI non trovato", HttpStatus.NOT_FOUND);
+        }
+        gestorePoi.approvaPOI(id);
+        return new ResponseEntity<>("POI approvato con successo", HttpStatus.OK);
+    }
+
+    @PutMapping("/disapprova/{id}")
+    public ResponseEntity<String> disapprovaPOI(@PathVariable String id) {
+        POI poi = gestorePoi.getPOI(id);
+        if (poi == null) {
+            return new ResponseEntity<>("POI non trovato", HttpStatus.NOT_FOUND);
+        }
+        gestorePoi.disapprovaPOI(id);
+        return new ResponseEntity<>("POI disapprovato con successo", HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/aggiungiContenuto")
+    public ResponseEntity<String> aggiungiContenutoAggiuntivo(@PathVariable String id, @RequestBody contenutoAggiuntivo contenuto) {
+        POI poi = gestorePoi.getPOI(id);
+        if (poi == null) {
+            return new ResponseEntity<>("POI non trovato", HttpStatus.NOT_FOUND);
+        }
+        gestorePoi.aggiungiContenutoAggiuntivo(id, contenuto);
+        return new ResponseEntity<>("Contenuto aggiuntivo aggiunto con successo", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}/rimuoviContenuto/{idContenuto}")
+    public ResponseEntity<String> rimuoviContenutoAggiuntivo(@PathVariable String id, @PathVariable String idContenuto) {
+        POI poi = gestorePoi.getPOI(id);
+        if (poi == null) {
+            return new ResponseEntity<>("POI non trovato", HttpStatus.NOT_FOUND);
+        }
+        gestorePoi.rimuoviContenutoAggiuntivo(id, idContenuto);
+        return new ResponseEntity<>("Contenuto aggiuntivo rimosso con successo", HttpStatus.OK);
+    }
+
+    @PutMapping("/{poiId}/approvaContenuto/{contenutoId}")
+    public ResponseEntity<String> approvaContenutoAggiuntivo(@PathVariable String poiId, @PathVariable String contenutoId) {
+        POI poi = gestorePoi.getPOI(poiId);
+        if (poi == null) {
+            return new ResponseEntity<>("POI non trovato", HttpStatus.NOT_FOUND);
+        }
+        gestorePoi.approvaContenutoAggiuntivo(poiId, contenutoId);
+        return new ResponseEntity<>("Contenuto approvato con successo", HttpStatus.OK);
+    }
+
+    @PutMapping("/{poiId}/disapprovaContenuto/{contenutoId}")
+    public ResponseEntity<String> disapprovaContenutoAggiuntivo(@PathVariable String poiId, @PathVariable String contenutoId) {
+        POI poi = gestorePoi.getPOI(poiId);
+        if (poi == null) {
+            return new ResponseEntity<>("POI non trovato", HttpStatus.NOT_FOUND);
+        }
+        gestorePoi.disapprovaContenutoAggiuntivo(poiId, contenutoId);
+        return new ResponseEntity<>("Contenuto disapprovato con successo", HttpStatus.OK);
     }
 }
 

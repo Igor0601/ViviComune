@@ -1,47 +1,69 @@
 package it.cs.unicam.ViviComune.Contest;
 
-import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
+import it.cs.unicam.ViviComune.Utente.Utente;
 import it.cs.unicam.ViviComune.POI.POI;
+import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
+import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+@Service
 public class GestoreContest {
-    private List<Contest> contestList;
-    public GestoreContest(){
-        this.contestList = new ArrayList<>();
+    private List<Contest> contests;
+
+    public GestoreContest() {
+        this.contests = new ArrayList<>();
     }
-    public void creaContest(int ID, String nome, String descrizione, String tipo, LocalDate dataInizio, LocalDate dataFine, POI poi){
-        Contest contest = new Contest(ID, nome, descrizione, tipo, dataInizio,dataFine,poi);
-        contestList.add(contest);
+
+    public void creaContest(String id, String nome, String descrizione, Date dataInizio, Date dataFine, POI poi, boolean isPubblico) {
+        Contest contest = new Contest(id, nome, descrizione, dataInizio, dataFine, poi, isPubblico);
+        contests.add(contest);
     }
-    public void modificaContest(int ID, String nome, String descrizione, String tipo, LocalDate dataInizio, LocalDate dataFine, POI poi){
-        for(Contest contest : contestList){
-            if(contest.getID() == ID){
-                contest.setNome(nome);
-                contest.setTipo(tipo);
-                contest.setDescrizione(descrizione);
-                contest.setDataInizio(dataInizio);
-                contest.setDataFine(dataFine);
-                break;
+
+    public void eliminaContest(String id) {
+        contests.removeIf(contest -> contest.getId().equals(id));
+    }
+
+    public Contest getContest(String id) {
+        for (Contest contest : contests) {
+            if (contest.getId().equals(id)) {
+                return contest;
             }
         }
+        return null;
     }
-    public void eliminaCotest(int ID){
-        contestList.removeIf(contest -> contest.getID() == ID);
+
+    public List<Contest> getTuttiContests() {
+        return contests;
     }
-    public Contest getContest(int ID){
-        for(Contest contest : contestList){
-            if(contest.getID() == ID) return  contest;
+
+    public void aggiungiPartecipante(String contestId, Utente utente) {
+        Contest contest = getContest(contestId);
+        if (contest != null) {
+            contest.aggiungiPartecipante(utente);
         }
-        return null;
     }
-    public List<Contest> getTuttiContest(){
-        return contestList;
+
+    public void invitaUtente(String contestId, Utente utente) {
+        Contest contest = getContest(contestId);
+        if (contest != null) {
+            contest.invitaUtente(utente);
+        }
     }
-    public contenutoAggiuntivo scegliVincitore(){
-        //TODO implementare
-        return null;
+
+    public void aggiungiContenuto(String contestId, contenutoAggiuntivo contenuto) {
+        Contest contest = getContest(contestId);
+        if (contest != null) {
+            contest.aggiungiContenuto(contenuto);
+        }
+    }
+
+    public void dichiaraVincitore(String contestId, Utente utenteCheHaVinto) {
+        Contest contest = getContest(contestId);
+        if (contest != null) {
+            contest.setVincitore(utenteCheHaVinto);
+        }
     }
 }

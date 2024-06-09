@@ -1,5 +1,7 @@
 package it.cs.unicam.ViviComune.Utente;
 
+import it.cs.unicam.ViviComune.Itinerario.Itinerario;
+import it.cs.unicam.ViviComune.POI.POI;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -63,5 +65,19 @@ public class GestoreUtente {
             }
         }
         return false;
+    }
+
+    public void aggiungiPOISalvato(String userId, POI poi) {
+        Utente utente = getUtente(userId);
+        if (utente != null) {
+            utente.aggiungiPOISalvato(poi);
+        }
+    }
+
+    public void aggiungiItinerarioSalvato(String userId, Itinerario itinerario) {
+        Utente utente = getUtente(userId);
+        if (utente != null) {
+            utente.aggiungiItinerarioSalvato(itinerario);
+        }
     }
 }

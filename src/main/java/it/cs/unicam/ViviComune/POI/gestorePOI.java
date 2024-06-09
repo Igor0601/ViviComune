@@ -99,60 +99,43 @@ public class gestorePOI {
         }
     }
 
-    public void aggiungiContenutoAggiuntivo(String poiId, String contenutoId, String nome, String descrizione, File file) {
-        for (POI poi : poiList) {
-            if (poi.getId().equals(poiId)) {
-                contenutoAggiuntivo contenuto = new contenutoAggiuntivo(contenutoId, nome, descrizione, file);
-                poi.aggiungiContenutoAggiuntivo(contenuto);
-                break;
-            }
+    public void aggiungiContenutoAggiuntivo(String id, contenutoAggiuntivo contenuto) {
+        POI poi = getPOI(id);
+        if (poi != null) {
+            poi.aggiungiContenutoAggiuntivo(contenuto);
+        }
+    }
+
+    public void rimuoviContenutoAggiuntivo(String idPOI, String idContenuto) {
+        POI poi = getPOI(idPOI);
+        if (poi != null) {
+            poi.rimuoviContenutoAggiuntivo(idContenuto);
         }
     }
 
     public void approvaContenutoAggiuntivo(String poiId, String contenutoId) {
-        for (POI poi : poiList) {
-            if (poi.getId().equals(poiId)) {
-                for (contenutoAggiuntivo contenuto : poi.getListaContenutiAggiuntivi()) {
-                    if (contenuto.getId().equals(contenutoId)) {
-                        contenuto.approvaContenuto();
-                        break;
-                    }
+        POI poi = getPOI(poiId);
+        if (poi != null) {
+            for (contenutoAggiuntivo contenuto : poi.getContenutiAggiuntivi()) {
+                if (contenuto.getId().equals(contenutoId)) {
+                    contenuto.approvaContenuto();
+                    break;
                 }
-                break;
             }
         }
     }
 
     public void disapprovaContenutoAggiuntivo(String poiId, String contenutoId) {
-        for (POI poi : poiList) {
-            if (poi.getId().equals(poiId)) {
-                for (contenutoAggiuntivo contenuto : poi.getListaContenutiAggiuntivi()) {
-                    if (contenuto.getId().equals(contenutoId)) {
-                        contenuto.disapprovaContenuto();
-                        break;
-                    }
+        POI poi = getPOI(poiId);
+        if (poi != null) {
+            for (contenutoAggiuntivo contenuto : poi.getContenutiAggiuntivi()) {
+                if (contenuto.getId().equals(contenutoId)) {
+                    contenuto.disapprovaContenuto();
+                    break;
                 }
-                break;
-            }
-        }
-
-    }
-
-    public void rimuoviContenutoAggiuntivo(String poiId, String contenutoId) {
-        for (POI poi : poiList) {
-            if (poi.getId().equals(poiId)) {
-                contenutoAggiuntivo contenutoDaRimuovere = null;
-                for (contenutoAggiuntivo contenuto : poi.getListaContenutiAggiuntivi()) {
-                    if (contenuto.getId().equals(contenutoId)) {
-                        contenutoDaRimuovere = contenuto;
-                        break;
-                    }
-                }
-                if (contenutoDaRimuovere != null) {
-                    poi.getListaContenutiAggiuntivi().remove(contenutoDaRimuovere);
-                }
-                break;
             }
         }
     }
+
+
 }

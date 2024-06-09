@@ -13,15 +13,14 @@ public class POI {
     private String descrizione;
     private Stato statoPOI;
     private Coordinate coordinate;
-    private List<contenutoAggiuntivo> listaContenutiAggiuntivi;
+    private List<contenutoAggiuntivo> contenutiAggiuntivi;
     public POI(String id, String nome, String descrizione, Coordinate coordinate) {
         this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
-        this.listaContenutiAggiuntivi = new ArrayList<>();
         this.statoPOI = Stato.ATTESA;
         this.coordinate = coordinate;
-
+        this.contenutiAggiuntivi=new ArrayList<>();
     }
     public String getId() {
         return id;
@@ -42,25 +41,34 @@ public class POI {
         this.descrizione = descrizione;
     }
 
-    public List<contenutoAggiuntivo> getListaContenutiAggiuntivi() {
-        return listaContenutiAggiuntivi;
-    }
-
     public Stato getStatoPOI() {
         return statoPOI;
     }
+
     public void setStatoPOI(Stato statoPOI) {
         this.statoPOI = statoPOI;
     }
+
     public Coordinate getCoordinate() {
         return coordinate;
     }
+
     public void setCoordinate(Coordinate coordinate) {
         this.coordinate = coordinate;
     }
 
-    public void aggiungiContenutoAggiuntivo(contenutoAggiuntivo contenuto){
-        this.listaContenutiAggiuntivi.add(contenuto);
+    public List<contenutoAggiuntivo> getContenutiAggiuntivi() {
+        return contenutiAggiuntivi;
     }
+
+    public void aggiungiContenutoAggiuntivo(contenutoAggiuntivo contenuto) {
+        contenutiAggiuntivi.add(contenuto);
+    }
+
+    public void rimuoviContenutoAggiuntivo(String idContenuto) {
+        contenutiAggiuntivi.removeIf(contenuto -> contenuto.getId().equals(idContenuto));
+    }
+
+
 
 }

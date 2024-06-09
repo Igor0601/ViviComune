@@ -1,91 +1,131 @@
 package it.cs.unicam.ViviComune.Contest;
-import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
-import it.cs.unicam.ViviComune.POI.POI;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
+import it.cs.unicam.ViviComune.Utente.Utente;
+import it.cs.unicam.ViviComune.POI.POI;
+import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
+
+import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Contest {
-    private int ID;
+    private String id;
     private String nome;
     private String descrizione;
-    private String tipo;
-    private LocalDate dataInizio;
-    private LocalDate dataFine;
+    private Date dataInizio;
+    private Date dataFine;
     private POI poi;
+    private boolean isPubblico;
+    private List<Utente> partecipanti;
+    private List<Utente> invitati;
     private List<contenutoAggiuntivo> contenuti;
-    private List<String> invitati;
+    private Utente vincitore;
 
-    public Contest(int ID, String nome, String descrizione, String tipo, LocalDate dataInizio, LocalDate dataFine, POI poi) {
-        this.ID = ID;
+    public Contest(String id, String nome, String descrizione, Date dataInizio, Date dataFine, POI poi, boolean isPubblico) {
+        this.id = id;
         this.nome = nome;
         this.descrizione = descrizione;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
         this.poi = poi;
-        this.contenuti = new ArrayList<>();
+        this.isPubblico = isPubblico;
+        this.partecipanti = new ArrayList<>();
         this.invitati = new ArrayList<>();
-        this.tipo = tipo;
+        this.contenuti = new ArrayList<>();
+        this.vincitore = null;
     }
 
-    public int getID() {
-        return ID;
+    // Getters and Setters
+
+    public String getId() {
+        return id;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
-    public String getDescrizione() {
-        return descrizione;
-    }
-    public String getTipo() {
-        return tipo;
-    }
-    public LocalDate getDataInizio() {
-        return dataInizio;
-    }
-    public LocalDate getDataFine() {
-        return dataFine;
-    }
-    public POI getPoi() {
-        return poi;
-    }
-    public List<contenutoAggiuntivo> getContenuti(){
-        return contenuti;
-    }
-    public List<String> getInvitati(){
-        return invitati;
-    }
-    public void setID(int ID) {
-        this.ID = ID;
-    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getDescrizione() {
+        return descrizione;
+    }
+
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+
+    public Date getDataInizio() {
+        return dataInizio;
     }
-    public void setDataInizio(LocalDate dataInizio) {
+
+    public void setDataInizio(Date dataInizio) {
         this.dataInizio = dataInizio;
     }
-    public void setDataFine(LocalDate dataFine) {
+
+    public Date getDataFine() {
+        return dataFine;
+    }
+
+    public void setDataFine(Date dataFine) {
         this.dataFine = dataFine;
     }
+
+    public POI getPoi() {
+        return poi;
+    }
+
     public void setPoi(POI poi) {
         this.poi = poi;
     }
-    public void setContenuti(List<contenutoAggiuntivo> contenuti) {
-        this.contenuti = contenuti;
+
+    public boolean isPubblico() {
+        return isPubblico;
     }
-    public void setInvitati(List<String> invitati) {
-        this.invitati = invitati;
+
+    public void setPubblico(boolean pubblico) {
+        isPubblico = pubblico;
     }
-    public void aggiungiInvitato(String username){
-        if(tipo.equals("privato")){
-            invitati.add(username);
+
+    public List<Utente> getPartecipanti() {
+        return partecipanti;
+    }
+
+    public List<Utente> getInvitati() {
+        return invitati;
+    }
+
+    public List<contenutoAggiuntivo> getContenuti() {
+        return contenuti;
+    }
+
+    public void aggiungiPartecipante(Utente utente) {
+        if (isPubblico || invitati.contains(utente)) {
+            partecipanti.add(utente);
         }
+    }
+
+    public void invitaUtente(Utente utente) {
+        if (!isPubblico) {
+            invitati.add(utente);
+        }
+    }
+
+    public void aggiungiContenuto(contenutoAggiuntivo contenuto) {
+        contenuti.add(contenuto);
+    }
+
+    public Utente getVincitore() {
+        return vincitore;
+    }
+
+    public void setVincitore(Utente vincitore) {
+        this.vincitore = vincitore;
     }
 }

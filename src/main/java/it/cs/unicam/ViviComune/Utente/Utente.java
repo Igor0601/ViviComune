@@ -1,5 +1,11 @@
 package it.cs.unicam.ViviComune.Utente;
 
+import it.cs.unicam.ViviComune.Itinerario.Itinerario;
+import it.cs.unicam.ViviComune.POI.POI;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Utente {
     String id;
     String nome;
@@ -7,6 +13,8 @@ public class Utente {
     String email;
     String username;
     private RuoloUtente ruolo;
+    private List<POI> poiSalvati;
+    private List<Itinerario> itinerariSalvati;
 
     public Utente(String id, String nome, String cognome, String email, String username, RuoloUtente ruolo) {
         this.id = id;
@@ -15,6 +23,8 @@ public class Utente {
         this.email = email;
         this.username = username;
         this.ruolo=ruolo;
+        this.poiSalvati = new ArrayList<>();
+        this.itinerariSalvati = new ArrayList<>();
     }
 
     public String getId() {
@@ -63,6 +73,22 @@ public class Utente {
 
     public void setRuolo(RuoloUtente ruolo) {
         this.ruolo = ruolo;
+    }
+
+    public List<POI> getPoiSalvati() {
+        return poiSalvati;
+    }
+
+    public List<Itinerario> getItinerariSalvati() {
+        return itinerariSalvati;
+    }
+
+    public void aggiungiPOISalvato(POI poi) {
+        poiSalvati.add(poi);
+    }
+
+    public void aggiungiItinerarioSalvato(Itinerario itinerario) {
+        itinerariSalvati.add(itinerario);
     }
 
 }

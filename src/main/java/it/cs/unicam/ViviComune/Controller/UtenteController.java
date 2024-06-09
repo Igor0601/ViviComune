@@ -1,5 +1,7 @@
 package it.cs.unicam.ViviComune.Controller;
 
+import it.cs.unicam.ViviComune.Itinerario.Itinerario;
+import it.cs.unicam.ViviComune.POI.POI;
 import it.cs.unicam.ViviComune.Utente.GestoreUtente;
 import it.cs.unicam.ViviComune.Utente.Utente;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,63 @@ public class UtenteController {
     public ResponseEntity<List<Utente>> getAllUtenti() {
         List<Utente> poiList = gestoreUtente.getTuttiUtenti();
         return new ResponseEntity<>(poiList, HttpStatus.OK);
+    }
+
+    @PostMapping("/nuovo")
+    public ResponseEntity<String> creaUtente(@RequestBody Utente nuovoUtente) {
+        if (gestoreUtente.esisteUtenteConEmail(nuovoUtente.getEmail())) {
+            return new ResponseEntity<>("Un utente con la stessa email esiste già", HttpStatus.BAD_REQUEST);
+        }
+        if (gestoreUtente.esisteUtenteConUsername(nuovoUtente.getUsername())) {
+            return new ResponseEntity<>("Un utente con lo stesso username esiste già", HttpStatus.BAD_REQUEST);
+        }
+        gestoreUtente.creaUtente(nuovoUtente.getId(), nuovoUtente.getNome(), nuovoUtente.getCognome(), nuovoUtente.getEmail(), nuovoUtente.getUsername(), nuovoUtente.getRuolo());
+        return new ResponseEntity<>("Utente creato con successo", HttpStatus.CREATED);
+    }
+
+    @PutMapping("/modifica/{id}")
+    public ResponseEntity<String> modificaUtente(@PathVariable String id, @RequestBody Utente utenteModificato) {
+        Utente utenteEsistente = gestoreUtente.getUtente(id);
+        if (utenteEsistente == null) {
+            return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
+        }
+        if (!utenteModificato.getEmail().equals(utenteEsistente.getEmail()) && gestoreUtente.esisteUtenteConEmail(utenteModificato.getEmail())) {
+            return new ResponseEntity<>("Un utente con la stessa email esiste già", HttpStatus.BAD_REQUEST);
+        }
+        if (!utenteModificato.getUsername().equals(utenteEsistente.getUsername()) && gestoreUtente.esisteUtenteConUsername(utenteModificato.getUsername())) {
+            return new ResponseEntity<>("Un utente con lo stesso username esiste già", HttpStatus.BAD_REQUEST);
+        }
+        gestoreUtente.modificaUtente(id, utenteModificato.getNome(), utenteModificato.getCognome(), utenteModificato.getEmail(), utenteModificato.getRuolo());
+        return new ResponseEntity<>("Utente modificato con successo", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/elimina/{id}")
+    public ResponseEntity<String> eliminaUtente(@PathVariable String id) {
+        Utente utente = gestoreUtente.getUtente(id);
+        if (utente == null) {
+            return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
+        }
+        gestoreUtente.eliminaUtente(id);
+        return new ResponseEntity<>("Utente eliminato correttamente", HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/salvaPOI")
+    public ResponseEntity<String> salvaPOI(@PathVariable String userId, @RequestBody POI poi) {
+        Utente utente = gestoreUtente.getUtente(userId);
+        if (utente == null) {
+            return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
+        }
+        gestoreUtente.aggiungiPOISalvato(userId, poi);
+        return new ResponseEntity<>("POI salvato con successo", HttpStatus.OK);
+    }
+
+    @PostMapping("/{userId}/salvaItinerario")
+    public ResponseEntity<String> salvaItinerario(@PathVariable String userId, @RequestBody Itinerario itinerario) {
+        Utente utente = gestoreUtente.getUtente(userId);
+        if (utente == null) {
+            return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
+        }
+        gestoreUtente.aggiungiItinerarioSalvato(userId, itinerario);
+        return new ResponseEntity<>("Itinerario salvato con successo", HttpStatus.OK);
     }
 }
