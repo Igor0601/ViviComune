@@ -60,10 +60,14 @@ public class GestoreContest {
         }
     }
 
-    public void dichiaraVincitore(String contestId, contenutoAggiuntivo contenuto) {
+    public void dichiaraVincitore(String contestId, String contenutoId) {
         Contest contest = getContest(contestId);
         if (contest != null) {
-            contest.dichiaraVincitore(contenuto);
+            contenutoAggiuntivo contenuto = contest.getContenuto(contenutoId);
+            if (contenuto != null) {
+                contest.setVincitore(contenuto.getAutore());
+                contest.setContenutoVincitore(contenuto);
+            }
         }
     }
 }

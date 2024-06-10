@@ -94,6 +94,15 @@ public class Contest {
         isPubblico = pubblico;
     }
 
+
+    public void setContenutoVincitore(contenutoAggiuntivo contenuto) {
+        this.contenutoVincitore=contenuto;
+    }
+
+    public void setVincitore(Utente autore) {
+        this.vincitore=autore;
+    }
+
     public List<Utente> getPartecipanti() {
         return partecipanti;
     }
@@ -126,10 +135,14 @@ public class Contest {
         return vincitore;
     }
 
-    public void dichiaraVincitore(contenutoAggiuntivo contenuto) {
-        if(contenuti.contains(contenuto)) {
-            this.vincitore = contenuto.getAutore();
-            this.contenutoVincitore = contenuto;
+
+    public contenutoAggiuntivo getContenuto(String contenutoId) {
+        for (contenutoAggiuntivo contenuto : contenuti) {
+            if (contenuto.getId().equals(contenutoId)) {
+                return contenuto;
+            }
         }
+        return null;
     }
+
 }
