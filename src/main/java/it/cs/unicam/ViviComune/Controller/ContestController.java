@@ -91,19 +91,26 @@ public class ContestController {
         return new ResponseEntity<>("Contenuto aggiunto con successo al contest", HttpStatus.OK);
     }
 
-    @PostMapping("/{contestId}/vincitore/{utenteId}")
-    public ResponseEntity<String> dichiaraVincitore(@PathVariable String contestId, @PathVariable String utenteId) {
+    @PostMapping("/{contestId}/vincitore/{contenutoId}")
+    public ResponseEntity<String> dichiaraVincitore(@PathVariable String contestId, @PathVariable String contenutoId) {
         Contest contest = gestoreContest.getContest(contestId);
         if (contest == null) {
             return new ResponseEntity<>("Contest non trovato", HttpStatus.NOT_FOUND);
         }
-
-        Utente utente = gestoreUtente.getUtente(utenteId);
-        if (utente == null) {
-            return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
+        List<contenutoAggiuntivo> contenuti = contest.getContenuti();
+        contenutoAggiuntivo contenutoVincitore = null;
+        for (contenutoAggiuntivo contenuto : contenuti) {
+            if (contenuto.getId().equals(contenutoId)) {
+                contenutoVincitore = contenuto;
+                break;
+            }
         }
 
-        gestoreContest.dichiaraVincitore(contestId, utente);
+        if (contenutoVincitore == null) {
+            return new ResponseEntity<>("Contenuto non trovato", HttpStatus.NOT_FOUND);
+        }
+
+        gestoreContest.dichiaraVincitore(contestId, contenutoVincitore);
         return new ResponseEntity<>("Vincitore del contest dichiarato correttamente", HttpStatus.OK);
     }
 }

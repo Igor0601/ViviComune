@@ -20,6 +20,7 @@ public class Contest {
     private List<Utente> invitati;
     private List<contenutoAggiuntivo> contenuti;
     private Utente vincitore;
+    private contenutoAggiuntivo contenutoVincitore;
 
     public Contest(String id, String nome, String descrizione, Date dataInizio, Date dataFine, POI poi, boolean isPubblico) {
         this.id = id;
@@ -125,7 +126,10 @@ public class Contest {
         return vincitore;
     }
 
-    public void setVincitore(Utente vincitore) {
-        this.vincitore = vincitore;
+    public void dichiaraVincitore(contenutoAggiuntivo contenuto) {
+        if(contenuti.contains(contenuto)) {
+            this.vincitore = contenuto.getAutore();
+            this.contenutoVincitore = contenuto;
+        }
     }
 }

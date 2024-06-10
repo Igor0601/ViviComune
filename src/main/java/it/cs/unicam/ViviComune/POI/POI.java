@@ -68,7 +68,4 @@ public class POI {
     public void rimuoviContenutoAggiuntivo(String idContenuto) {
         contenutiAggiuntivi.removeIf(contenuto -> contenuto.getId().equals(idContenuto));
     }
-
-
-
 }
