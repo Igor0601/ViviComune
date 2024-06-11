@@ -52,8 +52,6 @@ public class Contest {
 
     }
 
-    // Getters and Setters
-
     public String getId() {
         return id;
     }
