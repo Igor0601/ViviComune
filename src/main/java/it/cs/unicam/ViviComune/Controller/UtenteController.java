@@ -29,6 +29,15 @@ public class UtenteController {
         return new ResponseEntity<>(poiList, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Utente> getUtente(@PathVariable String id) {
+        Utente utente = gestoreUtente.getUtente(id);
+        if (utente == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(utente, HttpStatus.OK);
+    }
+
     @PostMapping("/nuovo")
     public ResponseEntity<String> creaUtente(@RequestBody Utente nuovoUtente) {
         if (gestoreUtente.esisteUtenteConEmail(nuovoUtente.getEmail())) {
@@ -85,5 +94,23 @@ public class UtenteController {
         }
         gestoreUtente.aggiungiItinerarioSalvato(userId, itinerario);
         return new ResponseEntity<>("Itinerario salvato con successo", HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/poiSalvati")
+    public ResponseEntity<List<POI>> getPOISalvati(@PathVariable String userId) {
+        List<POI> poiSalvati = gestoreUtente.getPOISalvati(userId);
+        if (poiSalvati == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(poiSalvati, HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/itinerariSalvati")
+    public ResponseEntity<List<Itinerario>> getItinerariSalvati(@PathVariable String userId) {
+        List<Itinerario> itinerariSalvati = gestoreUtente.getItinerariSalvati(userId);
+        if (itinerariSalvati == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(itinerariSalvati, HttpStatus.OK);
     }
 }

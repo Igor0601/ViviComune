@@ -1,5 +1,6 @@
 package it.cs.unicam.ViviComune.Controller;
 
+import it.cs.unicam.ViviComune.POI.POI;
 import it.cs.unicam.ViviComune.Segnalazione.GestoreSegnalazione;
 import it.cs.unicam.ViviComune.Segnalazione.Segnalazione;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,15 @@ public class SegnalazioneController {
     public ResponseEntity<List<Segnalazione>> getAllSegnalazioni() {
         List<Segnalazione> segnalazioni = gestoreSegnalazione.getTutteSegnalazioni();
         return new ResponseEntity<>(segnalazioni, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Segnalazione> getSegnalazione(@PathVariable String id) {
+        Segnalazione segnalazione = gestoreSegnalazione.getSegnalazione(id);
+        if (segnalazione == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(segnalazione, HttpStatus.OK);
     }
 
     @DeleteMapping("/elimina/{id}")

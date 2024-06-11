@@ -37,6 +37,15 @@ public class ItinerarioController {
         return new ResponseEntity<>(itinerari, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Itinerario> getItinerario(@PathVariable String id) {
+        Itinerario itinerario = gestoreItinerario.getItinerario(id);
+        if (itinerario == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(itinerario, HttpStatus.OK);
+    }
+
     @DeleteMapping("/elimina/{id}")
     public ResponseEntity<String> eliminaItinerario(@PathVariable String id) {
         Itinerario itinerario = gestoreItinerario.getItinerario(id);

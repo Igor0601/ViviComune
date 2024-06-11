@@ -2,6 +2,7 @@ package it.cs.unicam.ViviComune.Controller;
 
 import it.cs.unicam.ViviComune.Contest.Contest;
 import it.cs.unicam.ViviComune.Contest.GestoreContest;
+import it.cs.unicam.ViviComune.POI.POI;
 import it.cs.unicam.ViviComune.Utente.GestoreUtente;
 import it.cs.unicam.ViviComune.Utente.Utente;
 import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
@@ -34,6 +35,15 @@ public class ContestController {
     public ResponseEntity<List<Contest>> getAllContests() {
         List<Contest> contestList = gestoreContest.getTuttiContests();
         return new ResponseEntity<>(contestList, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Contest> getContest(@PathVariable String id) {
+        Contest contest = gestoreContest.getContest(id);
+        if (contest == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(contest, HttpStatus.OK);
     }
 
     @DeleteMapping("/elimina/{id}")

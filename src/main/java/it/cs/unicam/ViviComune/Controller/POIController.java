@@ -31,6 +31,16 @@ public class POIController {
         return new ResponseEntity<>(poiList, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<POI> getPOI(@PathVariable String id) {
+        POI poi = gestorePoi.getPOI(id);
+        if (poi == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(poi, HttpStatus.OK);
+    }
+
+
     @PostMapping("/nuovo")
     public ResponseEntity<String> creaPOI(@RequestBody POI nuovoPOI) {
         if (gestorePoi.esistePOIConId(nuovoPOI.getId())) {

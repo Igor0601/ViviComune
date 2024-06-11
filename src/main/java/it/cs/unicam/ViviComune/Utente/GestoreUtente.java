@@ -71,5 +71,22 @@ public class GestoreUtente {
             utenteRepository.save(utente);
         }
     }
+
+    public List<POI> getPOISalvati(String userId) {
+        Utente utente = getUtente(userId);
+        if (utente != null) {
+            return utente.getPoiSalvati();
+        }
+        return null;
+    }
+
+    public List<Itinerario> getItinerariSalvati(String userId) {
+        Utente utente = getUtente(userId);
+        if (utente != null) {
+            return utente.getItinerariSalvati();
+        }
+        return null;
+    }
+
 }
 
