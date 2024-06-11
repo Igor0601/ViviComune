@@ -2,82 +2,74 @@ package it.cs.unicam.ViviComune.Utente;
 
 import it.cs.unicam.ViviComune.Itinerario.Itinerario;
 import it.cs.unicam.ViviComune.POI.POI;
+import it.cs.unicam.ViviComune.POI.POIRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GestoreUtente {
-    private List<Utente> utenti;
 
-    public GestoreUtente() {
-        this.utenti = new ArrayList<>();
-    }
+    @Autowired
+    private UtenteRepository utenteRepository;
+    @Autowired
+    private POIRepository poiRepository;
 
     public void creaUtente(String id, String nome, String cognome, String email, String username, RuoloUtente ruolo) {
         Utente utente = new Utente(id, nome, cognome, email, username, ruolo);
-        utenti.add(utente);
+        utenteRepository.save(utente);
     }
 
     public void modificaUtente(String id, String nome, String cognome, String email, RuoloUtente ruolo) {
-        for (Utente utente : utenti) {
-            if (utente.getId().equals(id)) {
-                utente.setNome(nome);
-                utente.setCognome(cognome);
-                utente.setEmail(email);
-                utente.setRuolo(ruolo);
-                break;
-            }
+        Optional<Utente> optionalUtente = utenteRepository.findById(id);
+        if (optionalUtente.isPresent()) {
+            Utente utente = optionalUtente.get();
+            utente.setNome(nome);
+            utente.setCognome(cognome);
+            utente.setEmail(email);
+            utente.setRuolo(ruolo);
+            utenteRepository.save(utente);
         }
     }
 
     public void eliminaUtente(String id) {
-        utenti.removeIf(utente -> utente.getId().equals(id));
+        utenteRepository.deleteById(id);
     }
 
     public Utente getUtente(String id) {
-        for (Utente utente : utenti) {
-            if (utente.getId().equals(id)) {
-                return utente;
-            }
-        }
-        return null;
+        return utenteRepository.findById(id).orElse(null);
     }
 
     public List<Utente> getTuttiUtenti() {
-        return utenti;
+        return utenteRepository.findAll();
     }
 
     public boolean esisteUtenteConEmail(String email) {
-        for (Utente utente : utenti) {
-            if (utente.getEmail().equals(email)) {
-                return true;
-            }
-        }
-        return false;
+        return utenteRepository.findAll().stream().anyMatch(utente -> utente.getEmail().equals(email));
     }
 
     public boolean esisteUtenteConUsername(String username) {
-        for (Utente utente : utenti) {
-            if (utente.getUsername().equals(username)) {
-                return true;
-            }
-        }
-        return false;
+        return utenteRepository.findAll().stream().anyMatch(utente -> utente.getUsername().equals(username));
     }
 
     public void aggiungiPOISalvato(String userId, POI poi) {
-        Utente utente = getUtente(userId);
-        if (utente != null) {
+        Optional<Utente> optionalUtente = utenteRepository.findById(userId);
+        if (optionalUtente.isPresent()) {
+            Utente utente = optionalUtente.get();
             utente.aggiungiPOISalvato(poi);
+            utenteRepository.save(utente);
         }
     }
 
     public void aggiungiItinerarioSalvato(String userId, Itinerario itinerario) {
-        Utente utente = getUtente(userId);
-        if (utente != null) {
+        Optional<Utente> optionalUtente = utenteRepository.findById(userId);
+        if (optionalUtente.isPresent()) {
+            Utente utente = optionalUtente.get();
             utente.aggiungiItinerarioSalvato(itinerario);
+            utenteRepository.save(utente);
         }
     }
 }
+

@@ -1,107 +1,98 @@
 package it.cs.unicam.ViviComune.Itinerario;
+
 import it.cs.unicam.ViviComune.POI.POI;
+import it.cs.unicam.ViviComune.POI.POIRepository;
 import it.cs.unicam.ViviComune.Utils.Stato;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GestoreItinerario {
-    private List<Itinerario> itinerarioList;
 
-    public GestoreItinerario() {
-        itinerarioList = new ArrayList<Itinerario>();
-    }
+    @Autowired
+    private ItinerarioRepository itinerarioRepository;
+    @Autowired
+    private POIRepository poiRepository;
 
     public Itinerario getItinerario(String id){
-        for(Itinerario itinerario : itinerarioList) {
-            if (itinerario.getId().equals(id)) {
-                return itinerario;
-            }
-        }
-        return null;
+        return itinerarioRepository.findById(id).orElse(null);
     }
 
     public void creaItinerario(String id, String nome, String descrizione){
         Itinerario itinerario = new Itinerario(id, nome, descrizione);
-        itinerarioList.add(itinerario);
+        itinerarioRepository.save(itinerario);
     }
 
     public void modificaItinerario(String id, String nome, String descrizione){
-        for(Itinerario itinerario : itinerarioList) {
-            if (itinerario.getId().equals(id)) {
-                itinerario.setNome(nome);
-                itinerario.setDescrizione(descrizione);
-                break;
-            }
+        Optional<Itinerario> optionalItinerario = itinerarioRepository.findById(id);
+        if (optionalItinerario.isPresent()) {
+            Itinerario itinerario = optionalItinerario.get();
+            itinerario.setNome(nome);
+            itinerario.setDescrizione(descrizione);
+            itinerarioRepository.save(itinerario);
         }
     }
 
     public void aggiungiPOIAllItinerario(String itinerarioId, POI poi){
-        Itinerario itinerario = getItinerario(itinerarioId);
-        if(itinerario != null){
+        Optional<Itinerario> optionalItinerario = itinerarioRepository.findById(itinerarioId);
+        if(optionalItinerario.isPresent()){
+            Itinerario itinerario = optionalItinerario.get();
             itinerario.aggiungiPOI(poi);
+            itinerarioRepository.save(itinerario);
         }
     }
 
     public void rimuoviPOIDaItinerario(String itinerarioId, POI poi){
-        Itinerario itinerario = getItinerario(itinerarioId);
-        if(itinerario != null){
+        Optional<Itinerario> optionalItinerario = itinerarioRepository.findById(itinerarioId);
+        if(optionalItinerario.isPresent()){
+            Itinerario itinerario = optionalItinerario.get();
             itinerario.rimuoviPOI(poi);
+            itinerarioRepository.save(itinerario);
         }
     }
 
     public void rimuoviPOIdaTuttiItinerari(POI poi) {
-        for (Itinerario itinerario : itinerarioList) {
+        List<Itinerario> itinerari = itinerarioRepository.findAll();
+        for (Itinerario itinerario : itinerari) {
             itinerario.rimuoviPOI(poi);
+            itinerarioRepository.save(itinerario);
         }
     }
 
     public void eliminaItinerario(String id){
-        for(int i = 0; i<itinerarioList.size(); i++){
-            if(itinerarioList.get(i).getId().equals(id)){
-                itinerarioList.remove(i);
-                break;
-            }
-        }
+        itinerarioRepository.deleteById(id);
     }
 
     public List<Itinerario> getTuttiItinerari(){
-        return new ArrayList<>(itinerarioList);
+        return itinerarioRepository.findAll();
     }
 
     public boolean esisteItinerarioConId(String id) {
-        for (Itinerario itinerario : itinerarioList) {
-            if (itinerario.getId().equals(id)) {
-                return true;
-            }
-        }
-        return false;
+        return itinerarioRepository.existsById(id);
     }
 
     public boolean esisteItinerarioConNome(String nome) {
-        for (Itinerario itinerario : itinerarioList) {
-            if (itinerario.getNome().equals(nome)) {
-                return true;
-            }
-        }
-        return false;
+        return itinerarioRepository.findAll().stream().anyMatch(itinerario -> itinerario.getNome().equals(nome));
     }
 
     public void approvaItinerario(String id){
-        for (Itinerario itinerario : itinerarioList) {
-            if (itinerario.getId().equals(id)) {
-                itinerario.setStatoItinerario(Stato.APPROVATO);
-            }
+        Optional<Itinerario> optionalItinerario = itinerarioRepository.findById(id);
+        if (optionalItinerario.isPresent()) {
+            Itinerario itinerario = optionalItinerario.get();
+            itinerario.setStatoItinerario(Stato.APPROVATO);
+            itinerarioRepository.save(itinerario);
         }
     }
 
     public void disapprovaItinerario(String id){
-        for (Itinerario itinerario : itinerarioList) {
-            if (itinerario.getId().equals(id)) {
-                itinerario.setStatoItinerario(Stato.DISAPPROVATO);
-            }
+        Optional<Itinerario> optionalItinerario = itinerarioRepository.findById(id);
+        if (optionalItinerario.isPresent()) {
+            Itinerario itinerario = optionalItinerario.get();
+            itinerario.setStatoItinerario(Stato.DISAPPROVATO);
+            itinerarioRepository.save(itinerario);
         }
     }
 }

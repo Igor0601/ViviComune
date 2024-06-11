@@ -1,8 +1,16 @@
 package it.cs.unicam.ViviComune.Segnalazione;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
+
+@Entity
 public class Segnalazione {
+    @Id
     private String id;
     private String descrizione;
+    @Enumerated(EnumType.STRING)
     private TipoRiferimento tipoRiferimento;
     private String riferimentoId;
 
@@ -11,6 +19,10 @@ public class Segnalazione {
         this.descrizione = descrizione;
         this.tipoRiferimento = tipoRiferimento;
         this.riferimentoId = riferimentoId;
+    }
+
+    public Segnalazione() {
+
     }
 
     public String getId() {

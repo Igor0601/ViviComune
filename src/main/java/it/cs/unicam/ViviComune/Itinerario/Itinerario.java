@@ -2,15 +2,20 @@ package it.cs.unicam.ViviComune.Itinerario;
 
 import it.cs.unicam.ViviComune.POI.POI;
 import it.cs.unicam.ViviComune.Utils.Stato;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Itinerario {
+    @Id
     private String id;
     private String nome;
     private String descrizione;
+    @OneToMany
     private List<POI> listaPOI;
+    @Enumerated(EnumType.STRING)
     private Stato statoItinerario;
 
     public Itinerario(String id, String nome, String descrizione) {
@@ -20,6 +25,11 @@ public class Itinerario {
         this.listaPOI = new ArrayList<>();
         this.statoItinerario = Stato.ATTESA;
     }
+
+    public Itinerario() {
+
+    }
+
     public String getId() {
         return id;
     }

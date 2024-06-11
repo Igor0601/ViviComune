@@ -3,46 +3,41 @@ package it.cs.unicam.ViviComune.Contest;
 import it.cs.unicam.ViviComune.Utente.Utente;
 import it.cs.unicam.ViviComune.POI.POI;
 import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GestoreContest {
-    private List<Contest> contests;
-
-    public GestoreContest() {
-        this.contests = new ArrayList<>();
-    }
+    @Autowired
+    private ContestRepository contestRepository;
 
     public void creaContest(String id, String nome, String descrizione, Date dataInizio, Date dataFine, POI poi, boolean isPubblico) {
         Contest contest = new Contest(id, nome, descrizione, dataInizio, dataFine, poi, isPubblico);
-        contests.add(contest);
+        contestRepository.save(contest);
     }
 
     public void eliminaContest(String id) {
-        contests.removeIf(contest -> contest.getId().equals(id));
+        contestRepository.deleteById(id);
     }
 
     public Contest getContest(String id) {
-        for (Contest contest : contests) {
-            if (contest.getId().equals(id)) {
-                return contest;
-            }
-        }
-        return null;
+        Optional<Contest> contest = contestRepository.findById(id);
+        return contest.orElse(null);
     }
 
     public List<Contest> getTuttiContests() {
-        return contests;
+        return contestRepository.findAll();
     }
 
     public void aggiungiPartecipante(String contestId, Utente utente) {
         Contest contest = getContest(contestId);
         if (contest != null) {
             contest.aggiungiPartecipante(utente);
+            contestRepository.save(contest);
         }
     }
 
@@ -50,6 +45,7 @@ public class GestoreContest {
         Contest contest = getContest(contestId);
         if (contest != null) {
             contest.invitaUtente(utente);
+            contestRepository.save(contest);
         }
     }
 
@@ -57,6 +53,7 @@ public class GestoreContest {
         Contest contest = getContest(contestId);
         if (contest != null) {
             contest.aggiungiContenuto(contenuto);
+            contestRepository.save(contest);
         }
     }
 
@@ -67,6 +64,7 @@ public class GestoreContest {
             if (contenuto != null) {
                 contest.setVincitore(contenuto.getAutore());
                 contest.setContenutoVincitore(contenuto);
+                contestRepository.save(contest);
             }
         }
     }

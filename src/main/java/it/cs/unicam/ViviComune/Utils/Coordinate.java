@@ -1,5 +1,8 @@
 package it.cs.unicam.ViviComune.Utils;
 
+import jakarta.persistence.Embeddable;
+
+@Embeddable
 public class Coordinate {
     private double latitudine;
     private double longitudine;
@@ -7,6 +10,10 @@ public class Coordinate {
     public Coordinate(double latitudine, double longitudine) {
         this.latitudine = latitudine;
         this.longitudine = longitudine;
+    }
+
+    public Coordinate() {
+
     }
 
     public double getLatitudine() {

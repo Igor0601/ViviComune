@@ -3,23 +3,35 @@ package it.cs.unicam.ViviComune.Contest;
 import it.cs.unicam.ViviComune.Utente.Utente;
 import it.cs.unicam.ViviComune.POI.POI;
 import it.cs.unicam.ViviComune.ContenutoAggiuntivo.contenutoAggiuntivo;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
+@Entity
 public class Contest {
+    @Id
     private String id;
     private String nome;
     private String descrizione;
     private Date dataInizio;
     private Date dataFine;
+    @OneToOne
     private POI poi;
     private boolean isPubblico;
+    @OneToMany
     private List<Utente> partecipanti;
+    @OneToMany
     private List<Utente> invitati;
+    @OneToMany
     private List<contenutoAggiuntivo> contenuti;
+    @OneToOne
     private Utente vincitore;
+    @OneToOne
     private contenutoAggiuntivo contenutoVincitore;
 
     public Contest(String id, String nome, String descrizione, Date dataInizio, Date dataFine, POI poi, boolean isPubblico) {
@@ -34,6 +46,10 @@ public class Contest {
         this.invitati = new ArrayList<>();
         this.contenuti = new ArrayList<>();
         this.vincitore = null;
+    }
+
+    public Contest() {
+
     }
 
     // Getters and Setters

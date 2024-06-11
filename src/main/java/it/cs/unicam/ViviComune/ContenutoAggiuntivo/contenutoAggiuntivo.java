@@ -2,14 +2,20 @@ package it.cs.unicam.ViviComune.ContenutoAggiuntivo;
 
 import it.cs.unicam.ViviComune.Utente.Utente;
 import it.cs.unicam.ViviComune.Utils.Stato;
+import jakarta.persistence.*;
+
 import java.io.File;
 
+@Entity
 public class contenutoAggiuntivo {
+    @Id
     private String id;
     private String nome;
     private String descrizione;
     private File file;
+    @Enumerated(EnumType.STRING)
     private Stato statoContenuto;
+    @ManyToOne
     private Utente autore;
 
     public contenutoAggiuntivo(String id, String nome, String descrizione, File file, Utente autore){
@@ -20,6 +26,11 @@ public class contenutoAggiuntivo {
         this.statoContenuto = Stato.ATTESA;
         this.autore = autore;
     }
+
+    public contenutoAggiuntivo() {
+
+    }
+
     public String getId(){return id;}
     public void setId(String id){this.id = id;}
     public String getNome(){return nome;}

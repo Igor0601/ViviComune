@@ -2,18 +2,24 @@ package it.cs.unicam.ViviComune.Utente;
 
 import it.cs.unicam.ViviComune.Itinerario.Itinerario;
 import it.cs.unicam.ViviComune.POI.POI;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Utente {
+    @Id
     String id;
     String nome;
     String cognome;
     String email;
     String username;
+    @Enumerated(EnumType.STRING)
     private RuoloUtente ruolo;
+    @OneToMany
     private List<POI> poiSalvati;
+    @OneToMany
     private List<Itinerario> itinerariSalvati;
 
     public Utente(String id, String nome, String cognome, String email, String username, RuoloUtente ruolo) {
@@ -25,6 +31,10 @@ public class Utente {
         this.ruolo=ruolo;
         this.poiSalvati = new ArrayList<>();
         this.itinerariSalvati = new ArrayList<>();
+    }
+
+    public Utente() {
+
     }
 
     public String getId() {

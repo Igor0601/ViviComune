@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/poi")
 public class POIController {
 
-
+    @Autowired
     private gestorePOI  gestorePoi;
 
     @Autowired
