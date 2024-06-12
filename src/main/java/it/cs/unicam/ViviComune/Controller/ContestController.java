@@ -27,7 +27,7 @@ public class ContestController {
         if (gestoreContest.getContest(nuovoContest.getId()) != null) {
             return new ResponseEntity<>("Un Contest con lo stesso ID esiste già", HttpStatus.BAD_REQUEST);
         }
-        gestoreContest.creaContest(nuovoContest.getId(), nuovoContest.getNome(), nuovoContest.getDescrizione(), nuovoContest.getDataInizio(), nuovoContest.getDataFine(), nuovoContest.getPoi(), nuovoContest.isPubblico());
+        gestoreContest.creaContest(nuovoContest.getId(), nuovoContest.getNome(), nuovoContest.getDescrizione(), nuovoContest.getDataInizio(), nuovoContest.getDataFine(), nuovoContest.getPoi().getId(), nuovoContest.isPubblico());
         return new ResponseEntity<>("Contest creato con successo", HttpStatus.CREATED);
     }
 

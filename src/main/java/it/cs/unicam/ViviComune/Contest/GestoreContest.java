@@ -14,9 +14,19 @@ import java.util.Optional;
 public class GestoreContest {
     @Autowired
     private ContestRepository contestRepository;
+    @Autowired
+    private it.cs.unicam.ViviComune.POI.gestorePOI gestorePOI;
 
-    public void creaContest(String id, String nome, String descrizione, Date dataInizio, Date dataFine, POI poi, boolean isPubblico) {
-        Contest contest = new Contest(id, nome, descrizione, dataInizio, dataFine, poi, isPubblico);
+    public void creaContest(String id, String nome, String descrizione, Date dataInizio, Date dataFine, String poiId, boolean isPubblico) {
+        POI poi = gestorePOI.getPOI(poiId);
+        Contest contest = new ContestBuilder(id)
+                .withNome(nome)
+                .withDescrizione(descrizione)
+                .withDataInizio(dataInizio)
+                .withDataFine(dataFine)
+                .withPOI(poi)
+                .isPubblico(isPubblico)
+                .build();
         contestRepository.save(contest);
     }
 
