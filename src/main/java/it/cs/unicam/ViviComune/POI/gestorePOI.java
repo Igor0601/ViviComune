@@ -35,6 +35,8 @@ public class gestorePOI {
     }
 
     public void eliminaPOI(String id) {
+        POI poi = getPOI(id);
+        gestoreItinerario.rimuoviPOIdaTuttiItinerari(poi);
         poiRepository.deleteById(id);
     }
 
