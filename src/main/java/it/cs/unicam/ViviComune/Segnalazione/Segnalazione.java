@@ -21,9 +21,7 @@ public class Segnalazione {
         this.riferimentoId = riferimentoId;
     }
 
-    public Segnalazione() {
-
-    }
+    public Segnalazione() {}
 
     public String getId() {
         return id;
