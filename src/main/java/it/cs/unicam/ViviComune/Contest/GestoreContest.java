@@ -19,14 +19,11 @@ public class GestoreContest {
 
     public void creaContest(String id, String nome, String descrizione, Date dataInizio, Date dataFine, String poiId, boolean isPubblico) {
         POI poi = gestorePOI.getPOI(poiId);
-        Contest contest = new ContestBuilder(id)
-                .withNome(nome)
-                .withDescrizione(descrizione)
-                .withDataInizio(dataInizio)
-                .withDataFine(dataFine)
-                .withPOI(poi)
-                .isPubblico(isPubblico)
-                .build();
+        ContestBuilder builder = new ConcreteContestBuilder();
+        ContestDirector director = new ContestDirector(builder);
+        director.construct(nome, descrizione, dataInizio, dataFine, poi, isPubblico);
+        Contest contest = builder.getResult();
+        contest.setId(id);
         contestRepository.save(contest);
     }
 
