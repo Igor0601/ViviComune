@@ -3,7 +3,7 @@ package it.cs.unicam.ViviComune.Utente;
 import it.cs.unicam.ViviComune.Itinerario.GestoreItinerario;
 import it.cs.unicam.ViviComune.Itinerario.Itinerario;
 import it.cs.unicam.ViviComune.POI.POI;
-import it.cs.unicam.ViviComune.POI.POIRepository;
+import it.cs.unicam.ViviComune.POI.gestorePOI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +16,7 @@ public class GestoreUtente {
     @Autowired
     private UtenteRepository utenteRepository;
     @Autowired
-    private POIRepository poiRepository;
-    @Autowired
-    private it.cs.unicam.ViviComune.POI.gestorePOI gestorePOI;
+    private gestorePOI gestorePOI;
     @Autowired
     private GestoreItinerario gestoreItinerario;
 
