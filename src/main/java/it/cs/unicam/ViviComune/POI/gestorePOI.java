@@ -23,12 +23,13 @@ public class gestorePOI {
         poiRepository.save(poi);
     }
 
-    public void modificaPOI(String id, String nome, String descrizione) {
+    public void modificaPOI(String id, String nome, String descrizione, Coordinate coordinate) {
         Optional<POI> optionalPOI = poiRepository.findById(id);
         if (optionalPOI.isPresent()) {
             POI poi = optionalPOI.get();
             poi.setNome(nome);
             poi.setDescrizione(descrizione);
+            poi.setCoordinate(coordinate);
             poiRepository.save(poi);
         }
     }

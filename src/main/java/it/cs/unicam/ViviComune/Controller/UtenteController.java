@@ -76,25 +76,26 @@ public class UtenteController {
         return new ResponseEntity<>("Utente eliminato correttamente", HttpStatus.OK);
     }
 
-    @PostMapping("/{userId}/salvaPOI")
-    public ResponseEntity<String> salvaPOI(@PathVariable String userId, @RequestBody POI poi) {
+    @PostMapping("/{userId}/salvaPOI/{idPOI}")
+    public ResponseEntity<String> salvaPOI(@PathVariable String userId, @PathVariable String idPOI) {
         Utente utente = gestoreUtente.getUtente(userId);
         if (utente == null) {
             return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
         }
-        gestoreUtente.aggiungiPOISalvato(userId, poi);
+        gestoreUtente.aggiungiPOISalvato(userId, idPOI);
         return new ResponseEntity<>("POI salvato con successo", HttpStatus.OK);
     }
 
-    @PostMapping("/{userId}/salvaItinerario")
-    public ResponseEntity<String> salvaItinerario(@PathVariable String userId, @RequestBody Itinerario itinerario) {
+    @PostMapping("/{userId}/salvaItinerario/{idItinerario}")
+    public ResponseEntity<String> salvaItinerario(@PathVariable String userId, @PathVariable String idItinerario) {
         Utente utente = gestoreUtente.getUtente(userId);
         if (utente == null) {
             return new ResponseEntity<>("Utente non trovato", HttpStatus.NOT_FOUND);
         }
-        gestoreUtente.aggiungiItinerarioSalvato(userId, itinerario);
+        gestoreUtente.aggiungiItinerarioSalvato(userId, idItinerario);
         return new ResponseEntity<>("Itinerario salvato con successo", HttpStatus.OK);
     }
+
 
     @GetMapping("/{userId}/poiSalvati")
     public ResponseEntity<List<POI>> getPOISalvati(@PathVariable String userId) {

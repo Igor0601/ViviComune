@@ -68,7 +68,7 @@ public class POIController {
     public ResponseEntity<String> modificaPOI(@PathVariable String id, @RequestBody POI poiModificato) {
         POI poi = gestorePoi.getPOI(id);
         if (poi != null) {
-            gestorePoi.modificaPOI(id, poiModificato.getNome(), poiModificato.getDescrizione());
+            gestorePoi.modificaPOI(id, poiModificato.getNome(), poiModificato.getDescrizione(), poiModificato.getCoordinate());
             return new ResponseEntity<>("POI modificato con successo", HttpStatus.OK);
         } else {
             return new ResponseEntity<>("POI non trovato", HttpStatus.NOT_FOUND);

@@ -1,5 +1,6 @@
 package it.cs.unicam.ViviComune.Utente;
 
+import it.cs.unicam.ViviComune.Itinerario.GestoreItinerario;
 import it.cs.unicam.ViviComune.Itinerario.Itinerario;
 import it.cs.unicam.ViviComune.POI.POI;
 import it.cs.unicam.ViviComune.POI.POIRepository;
@@ -16,6 +17,10 @@ public class GestoreUtente {
     private UtenteRepository utenteRepository;
     @Autowired
     private POIRepository poiRepository;
+    @Autowired
+    private it.cs.unicam.ViviComune.POI.gestorePOI gestorePOI;
+    @Autowired
+    private GestoreItinerario gestoreItinerario;
 
     public void creaUtente(String id, String nome, String cognome, String email, String username, RuoloUtente ruolo) {
         Utente utente = new Utente(id, nome, cognome, email, username, ruolo);
@@ -54,21 +59,27 @@ public class GestoreUtente {
         return utenteRepository.findAll().stream().anyMatch(utente -> utente.getUsername().equals(username));
     }
 
-    public void aggiungiPOISalvato(String userId, POI poi) {
+    public void aggiungiPOISalvato(String userId, String idPOI) {
         Optional<Utente> optionalUtente = utenteRepository.findById(userId);
         if (optionalUtente.isPresent()) {
             Utente utente = optionalUtente.get();
-            utente.aggiungiPOISalvato(poi);
-            utenteRepository.save(utente);
+            POI poi = gestorePOI.getPOI(idPOI);
+            if (poi != null) {
+                utente.aggiungiPOISalvato(poi);
+                utenteRepository.save(utente);
+            }
         }
     }
 
-    public void aggiungiItinerarioSalvato(String userId, Itinerario itinerario) {
+    public void aggiungiItinerarioSalvato(String userId, String idItinerario) {
         Optional<Utente> optionalUtente = utenteRepository.findById(userId);
         if (optionalUtente.isPresent()) {
             Utente utente = optionalUtente.get();
-            utente.aggiungiItinerarioSalvato(itinerario);
-            utenteRepository.save(utente);
+            Itinerario itinerario = gestoreItinerario.getItinerario(idItinerario);
+            if (itinerario != null) {
+                utente.aggiungiItinerarioSalvato(itinerario);
+                utenteRepository.save(utente);
+            }
         }
     }
 
