@@ -108,7 +108,6 @@ public class Contest {
         isPubblico = pubblico;
     }
 
-
     public void setContenutoVincitore(contenutoAggiuntivo contenuto) {
         this.contenutoVincitore=contenuto;
     }
@@ -149,7 +148,6 @@ public class Contest {
         return vincitore;
     }
 
-
     public contenutoAggiuntivo getContenuto(String contenutoId) {
         for (contenutoAggiuntivo contenuto : contenuti) {
             if (contenuto.getId().equals(contenutoId)) {
@@ -158,5 +156,4 @@ public class Contest {
         }
         return null;
     }
-
 }
